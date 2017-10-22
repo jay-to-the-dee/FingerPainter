@@ -44,7 +44,13 @@ public class BrushSizeShape extends AppCompatActivity {
         Intent result = new Intent();
 
         Bundle bundle = new Bundle();
-        bundle.putInt("size", Integer.valueOf(sizeEntry.getText().toString()));
+
+        try {
+            Integer integer = Integer.valueOf(sizeEntry.getText().toString());
+            bundle.putInt("size", integer);
+        } catch (Exception e) {
+        }
+
         Paint.Cap selectedCap = null;
         if (roundRadioButton.isChecked())
         {

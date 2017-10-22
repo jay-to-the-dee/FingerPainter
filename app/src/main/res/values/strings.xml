@@ -4,4 +4,5 @@
     <string name="brush_colour_button">Brush Colour</string>
     <string name="square">Square</string>
     <string name="round">Round</string>
+    <string name="confirm">Confirm</string>
 </resources>

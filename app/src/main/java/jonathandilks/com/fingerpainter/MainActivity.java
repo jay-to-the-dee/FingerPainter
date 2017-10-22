@@ -39,15 +39,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode)
-        {
+        switch (requestCode) {
             case ACTIVITY_SIZESHAPE_REQUEST_CODE:
-                if (resultCode == RESULT_OK)
-                {
+                if (resultCode == RESULT_OK) {
                     Bundle bundle = data.getExtras();
 
-                    fingerPainter.setBrushWidth(bundle.getInt("size"));
+                    try {
+                        int brushWidth = bundle.getInt("size");
+                        fingerPainter.setBrushWidth(brushWidth);
+                    } catch (Exception e) {
+                    }
                     fingerPainter.setBrush((Paint.Cap) bundle.get("cap"));
+                }
+                break;
+
+            case ACTIVITY_COLOUR_REQUEST_CODE:
+                if (resultCode == RESULT_OK) {
+                    Bundle bundle = data.getExtras();
+
+                    try {
+                        int colour = bundle.getInt("colour");
+                        fingerPainter.setColour(colour);
+                    } catch (Exception e) {
+                    }
                 }
                 break;
         }
