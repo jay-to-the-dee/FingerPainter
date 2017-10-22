@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FingerPainter</string>
+    <string name="brush_size_shape">Brush Size/Shape</string>
+    <string name="brush_colour_button">Brush Colour</string>
+    <string name="square">Square</string>
+    <string name="round">Round</string>
 </resources>
