@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         fingerPainter = (FingerPainterView) findViewById(R.id.myFingerPainterViewId);
     }
 
-    public void openBrushSizeShapeActivity(View view) {
-
+    public void openBrushSizeShapeActivity(View view)
+    {
         Bundle bundle = new Bundle();
         bundle.putSerializable("cap", fingerPainter.getBrush());
         bundle.putInt("size", fingerPainter.getBrushWidth());
@@ -33,9 +33,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void openBrushColourActivity(View view) {
-//        Intent intent = new Intent(MainActivity.this, BrushColour.class);
-//        startActivityForResult(intent, ACTIVITY_COLOUR_REQUEST_CODE);
+    public void openBrushColourActivity(View view)
+    {
+        Bundle bundle = new Bundle();
+        bundle.putInt("colour", fingerPainter.getColour());
+
+        Intent intent = new Intent(MainActivity.this, BrushColour.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, ACTIVITY_COLOUR_REQUEST_CODE);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
