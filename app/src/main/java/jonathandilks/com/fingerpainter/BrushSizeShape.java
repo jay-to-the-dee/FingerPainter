@@ -7,12 +7,12 @@ import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 
 public class BrushSizeShape extends AppCompatActivity {
 
-    EditText sizeEntry;
+    NumberPicker sizeEntry;
     RadioButton roundRadioButton;
     RadioButton squareRadioButton;
 
@@ -21,13 +21,16 @@ public class BrushSizeShape extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_brush_size_shape);
 
-        sizeEntry = (EditText) findViewById(R.id.sizeEntry);
+        sizeEntry = (NumberPicker) findViewById(R.id.sizeEntry);
         roundRadioButton = (RadioButton) findViewById(R.id.roundRadioButton);
         squareRadioButton = (RadioButton) findViewById(R.id.squareRadioButton);
 
         Bundle bundle = getIntent().getExtras();
 
-        sizeEntry.setText(Integer.toString(bundle.getInt("size")));
+        sizeEntry.setMinValue(1);
+        sizeEntry.setMaxValue(50);
+        sizeEntry.setValue(bundle.getInt("size"));
+
         switch ((Paint.Cap) bundle.get("cap"))
         {
             case ROUND:
@@ -45,11 +48,8 @@ public class BrushSizeShape extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
 
-        try {
-            Integer integer = Integer.valueOf(sizeEntry.getText().toString());
-            bundle.putInt("size", integer);
-        } catch (Exception e) {
-        }
+        Integer integer = sizeEntry.getValue();
+        bundle.putInt("size", integer);
 
         Paint.Cap selectedCap = null;
         if (roundRadioButton.isChecked())
