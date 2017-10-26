@@ -26,7 +26,7 @@ public class BrushColour extends AppCompatActivity {
             WHITE,
             YELLOW};
 
-    GridView colourGrid = (GridView) findViewById(R.id.colourGrid);;
+    GridView colourGrid = (GridView) findViewById(R.id.colourGrid);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +37,11 @@ public class BrushColour extends AppCompatActivity {
 //        final List<Integer> coloursList = new ArrayList<>(Arrays.asList(colours));
 
         // Create a new ArrayAdapter
-        final ArrayAdapter<Integer> gridViewArrayAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_list_item_1, coloursList);
+//        final ArrayAdapter<Integer> gridViewArrayAdapter = new ArrayAdapter<>
+//                (this, android.R.layout.simple_list_item_1, coloursList);
 
         // Data bind GridView with ArrayAdapter (String Array elements)
-        colourGrid.setAdapter(gridViewArrayAdapter);
+//        colourGrid.setAdapter(gridViewArrayAdapter);
 
 
     }
