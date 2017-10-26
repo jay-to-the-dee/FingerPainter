@@ -45,7 +45,6 @@ public class BrushSizeShape extends AppCompatActivity {
 
     public void confirmButton(View view) {
         Intent result = new Intent();
-
         Bundle bundle = new Bundle();
 
         Integer integer = sizeEntry.getValue();

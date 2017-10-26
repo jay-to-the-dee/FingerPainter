@@ -19,7 +19,9 @@
         <activity
             android:name=".BrushSizeShape"
             android:label="@string/brush_size_shape" />
-        <activity android:name=".BrushColour"></activity>
+        <activity
+            android:name=".BrushColour"
+            android:label="@string/brush_colour_button" />
     </application>
 
 </manifest>
