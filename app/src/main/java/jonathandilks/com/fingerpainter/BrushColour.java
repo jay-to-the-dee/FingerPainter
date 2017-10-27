@@ -27,7 +27,6 @@ public class BrushColour extends AppCompatActivity {
             "yellow",
             "cyan",
             "magenta",
-            "lime",
             "maroon",
             "navy",
             "olive",
@@ -41,13 +40,22 @@ public class BrushColour extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_brush_colour);
 
+        Bundle bundle = getIntent().getExtras();
+
         colourGrid = (GridView) findViewById(R.id.colourGrid);
-        colourGrid.setAdapter(new ImageAdapter(this));
+        int currentColourPosition = 0;
+        for (int i = 0; i < colours.length; i++) {
+            if (Color.parseColor(colours[i]) == bundle.getInt("colour"))
+            {
+                currentColourPosition = i;
+                break;
+            }
+        }
+        colourGrid.setAdapter(new ImageAdapter(this, currentColourPosition));
 
         colourGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id)
-            {
+                                    int position, long id) {
                 Intent result = new Intent();
                 Bundle bundle = new Bundle();
 
@@ -63,10 +71,12 @@ public class BrushColour extends AppCompatActivity {
 
     public class ImageAdapter extends BaseAdapter {
         private Context mContext;
+        private int currentColourPosition;
         private int size;
 
-        public ImageAdapter(Context c) {
+        public ImageAdapter(Context c, int currentColourPosition) {
             mContext = c;
+            this.currentColourPosition = currentColourPosition;
             this.size = 350;
         }
 
@@ -88,19 +98,22 @@ public class BrushColour extends AppCompatActivity {
             if (convertView == null) {
                 // if it's not recycled, initialize some attributes
                 imageView = new ImageView(mContext);
-//                imageView.setLayoutParams(new GridView.LayoutParams(
-//                        ViewGroup.LayoutParams.MATCH_PARENT,
-//                        ViewGroup.LayoutParams.MATCH_PARENT)
-//                );
-                colourGrid = (GridView) findViewById(R.id.colourGrid);
                 imageView.setLayoutParams(new GridView.LayoutParams(size, size));
                 imageView.setPadding(8, 8, 8, 8);
-                imageView.setContentDescription(colours[position]);
             } else {
                 imageView = (ImageView) convertView;
             }
 
             imageView.setBackgroundColor(Color.parseColor(colours[position]));
+            imageView.setContentDescription(colours[position]);
+
+            if (position == currentColourPosition) {
+                imageView.setImageResource(android.R.drawable.checkbox_on_background);
+            }
+            else {
+                imageView.setImageResource(0);
+            }
+
             return imageView;
         }
 
