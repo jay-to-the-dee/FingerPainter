@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -51,7 +50,7 @@ public class BrushColour extends AppCompatActivity {
                 break;
             }
         }
-        colourGrid.setAdapter(new ImageAdapter(this, currentColourPosition));
+        colourGrid.setAdapter(new ColourGridAdapter(this, currentColourPosition));
 
         colourGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -69,13 +68,13 @@ public class BrushColour extends AppCompatActivity {
         });
     }
 
-    public class ImageAdapter extends BaseAdapter {
-        private Context mContext;
+    public class ColourGridAdapter extends BaseAdapter {
+        private Context context;
         private int currentColourPosition;
         private int size;
 
-        public ImageAdapter(Context c, int currentColourPosition) {
-            mContext = c;
+        public ColourGridAdapter(Context context, int currentColourPosition) {
+            this.context = context;
             this.currentColourPosition = currentColourPosition;
             this.size = 350;
         }
@@ -92,29 +91,27 @@ public class BrushColour extends AppCompatActivity {
             return 0;
         }
 
-        // create a new ImageView for each item referenced by the Adapter
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
+            ImageView colourSquare;
             if (convertView == null) {
-                // if it's not recycled, initialize some attributes
-                imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(size, size));
-                imageView.setPadding(8, 8, 8, 8);
+                colourSquare = new ImageView(context);
+                colourSquare.setLayoutParams(new GridView.LayoutParams(size, size));
+                colourSquare.setPadding(12, 12, 12, 12);
             } else {
-                imageView = (ImageView) convertView;
+                colourSquare = (ImageView) convertView;
             }
 
-            imageView.setBackgroundColor(Color.parseColor(colours[position]));
-            imageView.setContentDescription(colours[position]);
+            colourSquare.setBackgroundColor(Color.parseColor(colours[position]));
+            colourSquare.setContentDescription(colours[position]);
 
             if (position == currentColourPosition) {
-                imageView.setImageResource(android.R.drawable.checkbox_on_background);
+                colourSquare.setImageResource(android.R.drawable.checkbox_on_background);
             }
             else {
-                imageView.setImageResource(0);
+                colourSquare.setImageResource(0);
             }
 
-            return imageView;
+            return colourSquare;
         }
 
     }
