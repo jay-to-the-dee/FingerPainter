@@ -14,6 +14,22 @@ public class MainActivity extends AppCompatActivity {
     FingerPainterView fingerPainter;
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("cap", fingerPainter.getBrush());
+        outState.putInt("size", fingerPainter.getBrushWidth());
+        outState.putInt("colour", fingerPainter.getColour());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        fingerPainter.setBrush((Paint.Cap) savedInstanceState.get("cap"));
+        fingerPainter.setBrushWidth(savedInstanceState.getInt("size"));
+        fingerPainter.setColour(savedInstanceState.getInt("colour"));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -21,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
         fingerPainter = (FingerPainterView) findViewById(R.id.myFingerPainterViewId);
     }
 
-    public void openBrushSizeShapeActivity(View view)
-    {
+    public void openBrushSizeShapeActivity(View view) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("cap", fingerPainter.getBrush());
         bundle.putInt("size", fingerPainter.getBrushWidth());
@@ -33,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void openBrushColourActivity(View view)
-    {
+    public void openBrushColourActivity(View view) {
         Bundle bundle = new Bundle();
         bundle.putInt("colour", fingerPainter.getColour());
 
@@ -49,11 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     Bundle bundle = data.getExtras();
 
-                    try {
-                        int brushWidth = bundle.getInt("size");
-                        fingerPainter.setBrushWidth(brushWidth);
-                    } catch (Exception e) {
-                    }
+                    int brushWidth = bundle.getInt("size");
+                    fingerPainter.setBrushWidth(brushWidth);
                     fingerPainter.setBrush((Paint.Cap) bundle.get("cap"));
                 }
                 break;
@@ -62,11 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     Bundle bundle = data.getExtras();
 
-                    try {
-                        int colour = bundle.getInt("colour");
-                        fingerPainter.setColour(colour);
-                    } catch (Exception e) {
-                    }
+                    int colour = bundle.getInt("colour");
+                    fingerPainter.setColour(colour);
                 }
                 break;
         }

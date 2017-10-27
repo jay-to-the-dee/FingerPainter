@@ -97,6 +97,7 @@ public class BrushColour extends AppCompatActivity {
                 colourSquare = new ImageView(context);
                 colourSquare.setLayoutParams(new GridView.LayoutParams(size, size));
                 colourSquare.setPadding(12, 12, 12, 12);
+                colourSquare.setScaleType(ImageView.ScaleType.CENTER);
             } else {
                 colourSquare = (ImageView) convertView;
             }
